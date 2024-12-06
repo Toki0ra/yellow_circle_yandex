@@ -1,18 +1,18 @@
 import sys
 
 from PyQt6.QtGui import QPainter, QColor
-from PyQt6.QtWidgets import QMainWindow, QApplication
-from PyQt6 import uic
+from PyQt6.QtWidgets import QMainWindow, QApplication, QPushButton
 from random import randint
 
 
 class Circle(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setWindowTitle("Random Circles")
+        self.setGeometry(100, 100, 800, 600)
         self.flag = False
+        self.create_circle_btn = QPushButton("Создать круг", self)
         self.create_circle_btn.clicked.connect(self.click)
-
 
     def paintEvent(self, event):
         if self.flag:
@@ -22,7 +22,6 @@ class Circle(QMainWindow):
             qp.end()
         self.flag = False
 
-
     def click(self):
         self.flag = True
         self.update()
@@ -30,7 +29,10 @@ class Circle(QMainWindow):
     def circle(self, qp):
         x, y = randint(1, 800), randint(1, 600)
         r = randint(1, 100)
-        qp.setBrush(QColor(255, 255, 0))
+        first = randint(1, 255)
+        second = randint(1, 255)
+        third = randint(1, 255)
+        qp.setBrush(QColor(first, second, third))
         qp.drawEllipse(x, y, r, r)
 
     
